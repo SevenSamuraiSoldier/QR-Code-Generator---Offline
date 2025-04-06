@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QR Code Generator</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <style>
+        h1 {
+            font-size: 24px;
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .input-field,
+        .btn,
+        #qrcode {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .btn:hover {
+            background-color: #a0d6ff !important;
+        }
+    </style>
+</head>
+<body>
+    <h1>QR Code Generator</h1>
+    
+    <div class="input-field">
+        <input type="text" id="text-input" placeholder="Enter text" onkeypress="handleKeyPress(event)">
+    </div>
+    <a class="waves-effect waves-light btn" onclick="generateQRCode()"><i class="material-icons left">code</i>Generate</a>
+    <a class="waves-effect waves-light btn" onclick="reset()"><i class="material-icons left">refresh</i>Reset</a>
+    <br><br>
+    <div id="qrcode"></div>
+
+    <script>
+        function generateQRCode() {
+            var text = document.getElementById("text-input").value;
+            var qrcodeElement = document.getElementById("qrcode");
+            qrcodeElement.innerHTML = ""; // Clear previous QR code
+            var qrcode = new QRCode(qrcodeElement, {
+                text: text,
+                width: 250,
+                height: 250
+            });
+        }
+
+        function reset() {
+            document.getElementById("text-input").value = "";
+            document.getElementById("qrcode").innerHTML = "";
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                generateQRCode();
+            }
+        }
+    </script>
+</body>
+</html>
